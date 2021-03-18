@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+  </head>
+   <body>
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Your Profile</h3>
+
+<p> <h1> Welcome, {{user.nickname}}:</h1><br>
+    <form method="post">
+        <table>
+            <tr>
+                <td><h2><a href="{{ url_for('check') }}"> Create new check </a></h2></td>
+            </tr>
+            <tr>
+                <td><h2><a href="{{ url_for('checks') }}"> Show all checks(кхь вылет) </a></h2></td>
+            <tr>
+            <td><h2><a href="{{ url_for('market') }}"> Shopping </a></h2></td>
+            </tr>
+        </table>
+    </form>
+
+
+{% endblock %}
+   </body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+  </head>
+   <body>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Sign In</h1>
+
+<p>  Please enter your nickname and password below:( конечно оно не робит ;)</p><br>
+    <form method="post">
+        <table>
+            <tr>
+                <td>nickname</td>
+                <td><input type="text" name = "nickname">
+                </td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td><input type="email"></td>
+            </tr>
+            <tr>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+
+
+{% endblock %}
+   </body>
+</html>
