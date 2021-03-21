@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market</title>
+
+</head>
+<body>
+ {% extends "base.html" %}
+{% block content %}
+ <p>Chose market</p>
+   <table>
+       {% for market in markets %}
+           <tr>
+                <td><h2><a href="{{ url_for('shop', name=market.name) }}"> {{market.name}}</a></h2></td>
+            </tr>
+       {% endfor %}
+        </table>
+{% endblock %}
+</body>
+</html>
