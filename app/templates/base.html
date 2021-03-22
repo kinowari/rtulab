@@ -5,20 +5,19 @@
     {% else %}
     <title>market</title>
     {% endif %}
-         <style>
-   body {
-    background: url(images/hand.png) repeat-y,
-                url(http://kotomatrix.ru/images/lolz/2009/02/23/6z.jpg) repeat-y 100% 0;
-   }
-  </style>
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   </head>
   <body>
-    <div>Market:
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('user', nickname = current_user.nickname) }}">Your Profile</a>
-        <a href="{{ url_for('logout') }}">Logout</a>
-    </div>
+  <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-body border-bottom shadow-sm">
+  <p class="h5 my-0 me-md-auto fw-normal">Market</p>
+      <nav class="my-2 my-md-0 me-md-3">
+          <a class="p-2 text-dark" href="{{ url_for('login') }}">Login</a>
+          <a class="p-2 text-dark" href="{{ url_for('user', nickname = current_user.nickname) }}">Your Profile</a>
+          <a class="p-2 text-dark" href="{{ url_for('index') }}">Home</a>
+          <a class="p-2 text-dark" href="{{ url_for('logout') }}">Logout</a>
+      </nav>
+</header>
     <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}

@@ -7,26 +7,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Sign In</h1>
+<main class="form-signin"    style="width: 100%; max-width: 330px; padding: 15px; margin: auto" >
+<form method="post">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <label for="inputEmail" class="visually-hidden">nickname</label>
+    <input type="text" id="" class="form-control" placeholder="Nickname" required="" name="nickname">
+    <label for="inputEmail" class="visually-hidden">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" name="email">
 
-<p>  Please enter your nickname and password below:( конечно оно не робит ;)</p><br>
-    <form method="post">
-        <table>
-            <tr>
-                <td>nickname</td>
-                <td><input type="text" name = "nickname">
-                </td>
-            </tr>
-            <tr>
-                <td>email</td>
-                <td><input type="text" name = "email"></td>
-            </tr>
-            <tr>
-                <td><input type="submit"></td>
-            </tr>
-        </table>
-    </form>
-
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">© 2021 Renata Ayupova</p>
+</form>
+</main>
 
 {% endblock %}
    </body>

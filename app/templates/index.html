@@ -1,19 +1,18 @@
 <html>
   <head>
-    {% if title %}
-    <title>{{title}} - market</title>
-    {% else %}
-    <title>market</title>
-    {% endif %}
-
+    <title>index</title>
   </head>
    <body>
  {% extends "base.html" %}
 {% block content %}
-<h1>Hi {{user.nickname}}!</h1>
-{% for post in posts %}
-<div><p>{{post.author.nickname}} says: <b>{{post.body}}</b></p></div>
-{% endfor %}
+<div class="bd-example">
+        <p class="display-1">Возьмите меня в Рту Лаб, пожалуйста</p>
+        <p class="display-2">Возьмите меня в Рту Лаб, пожалуйста</p>
+        <p class="display-3">Возьмите меня в Рту Лаб, пожалуйста</p>
+        <p class="display-4">Возьмите меня в Рту Лаб, пожалуйста</p>
+        <p class="display-5">Возьмите меня в Рту Лаб, пожалуйста</p>
+        <p class="display-6">Возьмите меня в Рту Лаб, пожалуйста</p>
+        </div>
 {% endblock %}
  </body>
 </html>
