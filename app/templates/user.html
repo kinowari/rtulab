@@ -7,23 +7,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>Your Profile</h3>
-
-<p> <h1> Welcome, {{nickname}}:</h1><br>
     <form method="post">
-        <table>
-            <tr>
-                <td><h2><a href="{{ url_for('check') }}"> Create new check </a></h2></td>
-            </tr>
-            <tr>
-                <td><h2><a href="{{ url_for('checks') }}"> Show all checks(кхь вылет) </a></h2></td>
-            <tr>
-            <td><h2><a href="{{ url_for('market') }}"> Shopping </a></h2></td>
-            </tr>
+        <div class="bd-example">
+        <table class="table table-hover">
+          <tbody>
+          <tr class="table-danger">
+            <th scope="row"><a href="{{ url_for('check') }}"> Create new check </a></th>
+          </tr>
+
+          <tr class="table-warning">
+            <th scope="row"><a href="{{ url_for('checks') }}"> Show all checks </a></th>
+          </tr>
+          <tr class="table-primary">
+            <th scope="row"><a href="{{ url_for('market') }}"> Shopping </a></th>
+          </tr>
+          </tbody>
         </table>
+        </div>
     </form>
-
-
 {% endblock %}
    </body>
 </html>

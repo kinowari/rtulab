@@ -8,22 +8,7 @@ import time
 @app.route('/')
 @app.route('/index')
 def index():
-    session['nickname'] = ''
-    user = current_user
-    posts = [
-        {
-            'author': {'nickname': 'Renata'},
-            'body': 'Кхъ касяк на косяке, лучше просто код смотреть)'
-        },
-        {
-            'author': {'nickname': 'Renata2'},
-            'body': 'ну я пыталась (само собой писалось все с 0, было много проблем)'
-        }
-    ]
-    return render_template('index.html',
-                           title='Home',
-                           user=user,
-                           posts=posts)
+    return render_template('index.html')
 
 
 
@@ -140,15 +125,19 @@ def shop(name):
 
 @app.route('/product/<id>', methods = ['GET', 'POST'])
 def product(id):
+
     product = Product.query.filter_by(id=id).first()
+    market = Market.query.filter_by(id=product.id_market).first()
+    products = Product.query.filter_by(id_market=market.id).all()
     nickname = session['nickname']
     user = User.query.filter_by(nickname=nickname).first()
     if request.method == "POST":
 
         times = time.asctime()
-        product = product.name
+        productt = product.name
         mount = request.form.get('mount')
         payment_method = request.form.get('payment_method')
+
         price = product.price
         category = product.category
 
@@ -156,11 +145,11 @@ def product(id):
             flash('Одно из полей осталось пустым или введено некорректное значение')
             return redirect(url_for("product",id=id))
 
-        check = Check(times=str(times), product=product, price=price, mount=int(mount), category=category,
+        check = Check(times=str(times), product=productt, price=price, mount=int(mount), category=category,
                       payment_method=int(payment_method), user_id=user.id)
         db.session.add(check)
         db.session.commit()
 
-        return render_template("shop.html")
+        return render_template("shop.html",market=market,products=products)
     else:
         return render_template("product.html",product=product)

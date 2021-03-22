@@ -7,37 +7,42 @@
 <body>
 {% extends "base.html" %}
 {% block content %}
-  {% for product in products %}
-        <table>
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    {% for product in products %}
 
+    <div class="col">
+      <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 fw-normal">{{product.name}}</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">{{product.price}}</h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>{{product.description}}</li>
+        </ul>
+        <button type="button" class="w-100 btn btn-lg btn-outline-primary"><a href="{{ url_for('product', id=product.id) }}">Купить</a></button>
+      </div>
+    </div>
+    </div>
 
-            <tr>
-                <td>name: {{product.name}}</td>
-
-            </tr>
-            <tr>
-                <td>price: {{product.price}}</td>
-            </tr>
-             <tr>
-                 <td>description: {{product.description}}</td>
-            </tr>
-            <tr>
-                <td>name: {{product.name}}</td>
-                </tr>
-
-            <tr>
-                <td><button><a href="{{ url_for('product', id = product.id) }}">Купить</a></button></td>
-            </tr>
-        </table>
-        <hr/>
     {% endfor %}
- <div id="footer" style="position: fixed; left: 2; bottom: 0" >
-            <h4>Информация о магазине</h4>
-            <p>name: {{market.name}}</p>
-            <p>address: {{market.address}}</p>
-            <p>phone_number: {{market.phone_number}}</p>
+</div>
+<footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <small class="d-block mb-3 text-muted">© 2021 Renata Ayupova</small>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Информация о магазине</h5>
+        <ul class="list-unstyled text-small">
+          <li>{{market.name}}</li>
+          <li>{{market.address}}</li>
+          <li>{{market.phone_number}}</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 
-  </div>
 {% endblock %}
 
 </body>
