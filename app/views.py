@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, session, url_for, request
-from flask_login import  logout_user, current_user
+from flask_login import  logout_user
 from app import app, db, lm
 from app.models import User, Check, Market, Product
 import time
@@ -20,7 +20,8 @@ def login():
         email = request.form.get('email')
 
         user = User.query.filter_by(nickname=nickname).first()
-        if user is None:
+        userEm=User.query.filter_by(email=email).first()
+        if (user and userEm is None) and email== user.email:
             flash('Вы удачо зарегестрировались')
             print(nickname,email)
             new_user=User(nickname=nickname,email=email)
@@ -29,8 +30,8 @@ def login():
             db.session.add(new_user)
             db.session.commit()
             return render_template('user.html', nickname=new_user.nickname)
-        elif email!= user.email:
-            flash('Вы ввели неправильный email или nickname')
+        elif email!= user.email or nickname!= userEm.nickname:
+            flash('Вы ввели неправильный email или nickname (если вы впервые, то nickname занят)')
             return redirect(url_for("login"))
         else:
             flash('Добро пожаловать, '+ nickname)
@@ -43,7 +44,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-
+    session.pop('nickname', None)
     logout_user()
     return redirect(url_for('login'))
 
@@ -56,16 +57,18 @@ def load_user(id):
 
 @app.route('/user', methods = ['GET', 'POST'])
 def user():
-    nickname = session['nickname']
-    user = User.query.filter_by(nickname=nickname).first()
-
-    if user == None:
-        flash('User ' + ' not found.')
+    if 'nickname' in session:
+        nickname = session['nickname']
+        user = User.query.filter_by(nickname=nickname).first()
+        return render_template('user.html',
+                               user=user,
+                               )
+    else:
+        flash('Вы не зарегестрировались')
         return redirect(url_for('login'))
 
-    return render_template('user.html',
-                           user=user,
-                           )
+
+
 
 @app.route('/check', methods = ['GET', 'POST'])
 def check():
@@ -82,13 +85,15 @@ def check():
         mount = request.form.get('mount')
         category = request.form.get('category')
         payment_method = request.form.get('payment_method')
-        print(times,price,product,mount,category,payment_method)
-        check = Check( times = str(times), product = product,price=price, mount=mount,category=category,payment_method=int(payment_method), user_id = user.id)
-        db.session.add(check)
-        db.session.commit()
-        if price == ''or product =='' or mount == '' or category == '' or payment_method == '' or payment_method == None:
+
+        if price == '' or product == '' or mount == '' or category == '' or payment_method == '' or payment_method == '' or int(
+                mount) < 1 or (payment_method!='0' and payment_method!='1') or int(price)<1:
             flash('Одно из полей осталось пустым')
             return redirect(url_for("check"))
+
+        check = Check( times = str(times), product = product,price=int(price), mount=int(mount),category=category,payment_method=int(payment_method), user_id = user.id)
+        db.session.add(check)
+        db.session.commit()
         return redirect(url_for("check"))
     else:
         return render_template("check.html")
@@ -141,7 +146,7 @@ def product(id):
         price = product.price
         category = product.category
 
-        if mount == None or payment_method == None or int(mount) < 1 or (int(payment_method) != 0 and int(payment_method) != 1):
+        if mount == '' or payment_method == '' or int(mount) < 1 or (payment_method != '0' and payment_method != '1'):
             flash('Одно из полей осталось пустым или введено некорректное значение')
             return redirect(url_for("product",id=id))
 
